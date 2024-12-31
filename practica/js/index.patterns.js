@@ -1,4 +1,4 @@
-import { ARTICLE_TYPES, ArticleFactory } from "./classes/Article.js"
+import { ARTICLE_TYPES, ArticleFactory, articuloLeche } from "./classes/Article.js"
 import { ShoppingList } from "./classes/ShoppingList.js"
 import { LocalStore } from "./classes/LocalStore.js"
 
@@ -38,6 +38,12 @@ function onDOMContentLoaded() {
   botonNuevaLista.addEventListener('click', onNewListClick)
 
   loadShoppingList()
+  // Patrón: Prototype
+  const ejemploPrototipoLeche = Object.create(articuloLeche)
+  console.log(ejemploPrototipoLeche,
+    ejemploPrototipoLeche.name,
+    ejemploPrototipoLeche.qty,
+    ejemploPrototipoLeche.price)
 }
 
 function onFormSubmit(e) {

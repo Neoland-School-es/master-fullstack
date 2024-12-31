@@ -1,4 +1,4 @@
-// Patrón: prototype
+// Bussiness Object: Shopping List
 export class ShoppingList {
   // Private fields
   #basket

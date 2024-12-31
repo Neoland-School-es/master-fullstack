@@ -12,6 +12,12 @@ class ComplexArticle extends SimpleArticle {
     this.price = price
   }
 }
+// Patrón: Prototype
+export const articuloLeche = {
+  name: 'leche',
+  qty: 12,
+  price: 15
+}
 
 export const ARTICLE_TYPES = {
   SIMPLE: 'simple',
