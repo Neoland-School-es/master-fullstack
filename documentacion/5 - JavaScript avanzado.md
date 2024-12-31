@@ -76,11 +76,31 @@ Para más información, mejor [leer la referencia](https://git-scm.com/docs/gitm
 
 ## [Patrones de diseño en JS](https://refactoring.guru/design-patterns)
 
+* Constructores
+* Singleton
+
 Lecturas recomendadas:
 
 * [Patrones de arquitectura y diseño en JavaScript](https://medium.com/@hjkmines/javascript-design-and-architectural-patterns-cfa900c6fe41)
 * [JavaScript a escala grande](https://addyosmani.com/largescalejavascript/)
 * [Arquitectura orientada al dominio](https://dev.to/itswillt/a-different-approach-to-frontend-architecture-38d4)
+
+## Programación orientada a objetos
+
+* Prototipos
+* Call, Apply, Bind
+* Herencia
+* Mixin
+
+## Modelo Vista Controlador
+
+### Inyección de dependencias
+
+### Módulos
+
+#### Importación dinámica de módulos
+
+## Conceptos avanzados de JavaScript
 
 ### Closures
 
@@ -90,32 +110,19 @@ Lecturas recomendadas:
 
 ### Context
 
-### Constructores
-
-### Modulos (Módulos ES6)
-
-### Singleton
-
-### Modelo Vista Controlador
-
-### Inyección de dependencias
-
 ### Control de timeouts en peticiones XHR con abort
 
-### Reactividad (signals)
+### Expresiones regulares
 
-## Programación orientada a objetos
+## Tipado de variables
 
-* Prototipos
-* Call, Apply, Bind
-* Herencia
-* Mixin
+### Tipado nativo de JavaScript
 
-## Expresiones regulares
+### Tipado con Typescript
 
-## Tipado de variables con Typescript
+### Validación de tipados con JSDOC
 
-## Validación de tipados con JSDOC
+## Reactividad (signals)
 
 ## REDUX Store
 
