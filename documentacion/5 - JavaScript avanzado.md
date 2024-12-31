@@ -80,7 +80,10 @@ Para más información, mejor [leer la referencia](https://git-scm.com/docs/gitm
 * Estructural: esta categoría se centra en las relaciones entre objetos. Garantizan que si una parte de un sistema cambia, no es necesario que todo el sistema cambie junto con ella. Ejemplos: Adapter, Decorator, Composite y Bridge
 * Conductual: esta categoría reconoce, implementa y mejora la comunicación entre objetos dispares en un sistema. Garantiza que las partes dispares de un sistema tengan información sincronizada. Ejemplos: Command, Momento y Observer
 
-Lectura recomendada: [Patrones de arquitectura y diseño en JavaScript](https://medium.com/@hjkmines/javascript-design-and-architectural-patterns-cfa900c6fe41)
+Lecturas recomendadas:
+
+* [Patrones de arquitectura y diseño en JavaScript](https://medium.com/@hjkmines/javascript-design-and-architectural-patterns-cfa900c6fe41)
+* [Decoradores en JavaScript](https://www.sitepoint.com/javascript-decorators-what-they-are/)
 
 ## Programación orientada a objetos
 
