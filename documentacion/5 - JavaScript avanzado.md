@@ -98,7 +98,7 @@ Lecturas recomendadas:
 
 ### Módulos
 
-#### Importación dinámica de módulos
+### Importación dinámica de módulos
 
 ## Conceptos avanzados de JavaScript
 
