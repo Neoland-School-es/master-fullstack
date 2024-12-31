@@ -76,13 +76,21 @@ Para más información, mejor [leer la referencia](https://git-scm.com/docs/gitm
 
 ## [Patrones de diseño en JS](https://refactoring.guru/design-patterns)
 
-* Constructores
-* Singleton
+* Patrones de diseño
+  * Creacional: esta categoría se centra en los mecanismos de creación de objetos que optimizan y controlan la creación de objetos. Ejemplos: Factory, Builder, Singleton, Abstract y Prototype
+  * Estructural: esta categoría se centra en las relaciones entre objetos. Garantizan que si una parte de un sistema cambia, no es necesario que todo el sistema cambie junto con ella. Ejemplos: Adapter, Decorator, Composite y Bridge
+  * Conductual: esta categoría reconoce, implementa y mejora la comunicación entre objetos dispares en un sistema. Garantiza que las partes dispares de un sistema tengan información sincronizada. Ejemplos: Command, Momento y Observer
+* Patrones de arquitectura
+  * [Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) (MVC)
+  * [Model-View-Presenter](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) (MVP)
+  * [Model-View-ViewModel](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) (MVVM)
+  * [Hexagonal](https://en.wikipedia.org/wiki/Hexagonal_Architecture), también conocida por _Ports And Adapters_
+  * [Microservices](https://en.wikipedia.org/wiki/Microservices)
+  * [Monolithic](https://en.wikipedia.org/wiki/Monolithic_application)
 
 Lecturas recomendadas:
 
 * [Patrones de arquitectura y diseño en JavaScript](https://medium.com/@hjkmines/javascript-design-and-architectural-patterns-cfa900c6fe41)
-* [JavaScript a escala grande](https://addyosmani.com/largescalejavascript/)
 * [Arquitectura orientada al dominio](https://dev.to/itswillt/a-different-approach-to-frontend-architecture-38d4)
 
 ## Programación orientada a objetos
