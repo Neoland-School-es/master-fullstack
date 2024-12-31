@@ -57,7 +57,6 @@ function loadShoppingList() {
       addToElementsList(listaCompra[i].name)
     }
   }
-
 }
 
 function addToShoppingList(){
