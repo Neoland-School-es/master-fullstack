@@ -1,3 +1,5 @@
+import { translateString } from '../utils/translate.js'
+
 // Patrón: Factory
 class SimpleArticle {
   constructor(name) {
@@ -33,5 +35,22 @@ export class ArticleFactory {
       default:
         return new SimpleArticle(name)
     }
+  }
+  // Patrón: Adapter
+  createTranslatedArticle(type, name, qty, price) {
+    switch(type) {
+      case ARTICLE_TYPES.COMPLEX:
+        return translateArticle(new ComplexArticle(name, qty, price))
+      case ARTICLE_TYPES.SIMPLE:
+      default:
+        return translateArticle(new SimpleArticle(name))
+    }
+  }
+}
+
+function translateArticle(article) {
+  return {
+    ...article,
+    name: translateString(article.name)
   }
 }

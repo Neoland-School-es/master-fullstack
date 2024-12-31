@@ -1,17 +1,19 @@
 import { ARTICLE_TYPES, ArticleFactory, articuloLeche } from "./classes/Article.js"
 import { ShoppingList } from "./classes/ShoppingList.js"
 import { LocalStore } from "./classes/LocalStore.js"
+import { logBasket } from './decorators/log.js'
 
 // Patrón: Factory
 const fabricaArticulos = new ArticleFactory
-// Patrón Singleton (IEEF)
+// Patrón: Singleton (IEEF)
 let listaCompra = (function() {
   let shoppingListInstance
 
   return {
     get: () => {
       if (!shoppingListInstance) {
-        shoppingListInstance = create()
+        // Patrón: Decorator
+        shoppingListInstance = logBasket(create())
       }
       return shoppingListInstance
     }
@@ -39,11 +41,11 @@ function onDOMContentLoaded() {
 
   loadShoppingList()
   // Patrón: Prototype
-  const ejemploPrototipoLeche = Object.create(articuloLeche)
-  console.log(ejemploPrototipoLeche,
-    ejemploPrototipoLeche.name,
-    ejemploPrototipoLeche.qty,
-    ejemploPrototipoLeche.price)
+  // const ejemploPrototipoLeche = Object.create(articuloLeche)
+  // console.log(ejemploPrototipoLeche,
+  //   ejemploPrototipoLeche.name,
+  //   ejemploPrototipoLeche.qty,
+  //   ejemploPrototipoLeche.price)
 }
 
 function onFormSubmit(e) {
@@ -96,7 +98,9 @@ function addToShoppingList(){
   const carrito = listaCompra.get()
 
   if (nombreArticulo !== '') {
-    const nuevoArticulo = fabricaArticulos.createArticle(ARTICLE_TYPES.SIMPLE, nombreArticulo)
+    // const nuevoArticulo = fabricaArticulos.createArticle(ARTICLE_TYPES.SIMPLE, nombreArticulo)
+    // Patrón: Adapter
+    const nuevoArticulo = fabricaArticulos.createTranslatedArticle(ARTICLE_TYPES.SIMPLE, nombreArticulo)
     carrito.addItem(nuevoArticulo)
     addToElementsList(nuevoArticulo.name)
   }
@@ -125,6 +129,9 @@ function resetShoppingList() {
 function resetFormState(){
   const campoArticulo = document.getElementById('articulo')
   const botonArticulo = document.getElementById('nuevoArticulo')
+  const carrito = listaCompra.get()
   campoArticulo.value = ''
   botonArticulo.setAttribute('disabled', undefined)
+  // Patrón: Decorator
+  carrito.log()
 }

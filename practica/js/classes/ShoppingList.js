@@ -40,5 +40,3 @@ export class ShoppingList {
     this._resetDataStore()
   }
 }
-
-// TODO: get total $$$
