@@ -4,7 +4,7 @@ import { LocalStore } from "./classes/LocalStore.js"
 
 // Patrón: Factory
 const fabricaArticulos = new ArticleFactory
-// Patrón Singleton (IEF)
+// Patrón Singleton (IEEF)
 let listaCompra = (function() {
   let shoppingListInstance
 
