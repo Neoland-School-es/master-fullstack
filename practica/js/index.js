@@ -30,6 +30,16 @@ function onInputKeyUp(e) {
   e.stopPropagation()
   const botonArticulo = document.getElementById('nuevoArticulo')
 
+  if (e.code === 'Enter') {
+    const clickEvent = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    })
+    botonArticulo.dispatchEvent(clickEvent)
+    return
+  }
+
   if (this.value !== '') {
     botonArticulo.removeAttribute('disabled')
   } else {
