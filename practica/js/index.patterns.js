@@ -42,6 +42,7 @@ function onDOMContentLoaded() {
   loadShoppingList()
   // Patrón: Observer
   listaCompra.get().subscribe('formulario', 'add', addToElementsList)
+  listaCompra.get().subscribe('formulario', 'remove', removeFromElementsList)
 }
 
 function onFormSubmit(e) {
@@ -83,12 +84,12 @@ function loadShoppingList() {
   const carrito = listaCompra.get()
   if (carrito.basket.length > 0){
     for (let i = 0; i < carrito.basket.length; i++){
-      addToElementsList(carrito.basket[i].name)
+      addToElementsList(carrito.basket[i])
     }
   }
 }
 
-function addToShoppingList(){
+function addToShoppingList() {
   const campoArticulo = document.getElementById('articulo')
   const nombreArticulo = campoArticulo.value
   const carrito = listaCompra.get()
@@ -101,13 +102,33 @@ function addToShoppingList(){
   }
 }
 
-function addToElementsList(nuevoArticulo){
+function addToElementsList(nuevoArticulo) {
   const listaArticulos = document.getElementById('lista')
   const elemento = document.createElement('li')
+  const boton = document.createElement('button')
   // Patrón: Observer
   elemento.innerText = nuevoArticulo.name
+  elemento.id = nuevoArticulo.id
+  boton.innerText = 'BORRAR'
+  boton.addEventListener('click', removeFromShoppingList.bind(this, nuevoArticulo), { once: true })
+  elemento.appendChild(boton)
   listaArticulos.appendChild(elemento)
   resetFormState()
+}
+
+function removeFromShoppingList(articulo) {
+  const carrito = listaCompra.get()
+  carrito.removeItem(articulo)
+}
+
+function removeFromElementsList(articulo) {
+  const listaArticulos = document.getElementById('lista')
+  console.log('remove from elements list', articulo.id)
+  for (const node of listaArticulos.childNodes) {
+    if (node.id === articulo.id) {
+      listaArticulos.removeChild(node)
+    }
+  }
 }
 
 function resetShoppingList() {
@@ -122,7 +143,7 @@ function resetShoppingList() {
   resetFormState()
 }
 
-function resetFormState(){
+function resetFormState() {
   const campoArticulo = document.getElementById('articulo')
   const botonArticulo = document.getElementById('nuevoArticulo')
   const carrito = listaCompra.get()

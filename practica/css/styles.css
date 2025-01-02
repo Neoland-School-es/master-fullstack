@@ -4,10 +4,16 @@ ul {
 }
 li {
   list-style-type: none;
+  &:has(+ li) {
+    margin: 0 0 1em;
+  }
 }
 ul li:first-child:has(+ li) {
   display: none;
 }
 button {
   cursor: pointer;
+}
+li button {
+  margin-left: 1em;
 }

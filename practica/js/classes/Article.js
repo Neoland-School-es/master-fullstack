@@ -4,6 +4,7 @@ import { translateString, translate } from '../utils/translate.js'
 class SimpleArticle {
   constructor(name) {
     this.name = name
+    this.id = ''
   }
 }
 // Herencia

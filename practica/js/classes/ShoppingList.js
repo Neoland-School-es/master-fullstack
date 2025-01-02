@@ -26,6 +26,12 @@ export class ShoppingList {
     this._notifySubscriptors('add', item)
   }
 
+  _removeFromDataStore(item) {
+    this.#store.removeItem(item)
+    // Patrón: Observer
+    this._notifySubscriptors('remove', item)
+  }
+
   _syncStoreData() {
     this.#basket = this.#store.items
   }
@@ -48,10 +54,25 @@ export class ShoppingList {
   addItem(newItem) {
     // Patrón: Decorator
     if (this.validate.isString(newItem.name, 'Article name')) {
-        this._addToDataStore(newItem)
-        return true
+      const timestamp = new Date()
+      newItem.id = `${newItem.name}_${String(timestamp.getTime())}`
+      this._addToDataStore(newItem)
+      return true
     } else {
       return false
+    }
+  }
+
+  removeItem(item) {
+    if (typeof item.id === 'string') {
+      this._removeFromDataStore(item)
+    } else {
+      try {
+        throw new TypeError(`Invalid item ID`)
+      } catch (e) {
+        console.error(e.name, e.message)
+        if (e instanceof TypeError) console.log(e.stack)
+      }
     }
   }
 
