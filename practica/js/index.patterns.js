@@ -1,5 +1,5 @@
 import { ARTICLE_TYPES, ArticleFactory, articuloLeche } from "./classes/Article.js"
-import { ShoppingList } from "./classes/ShoppingList.js"
+import { ShoppingList, withTotalMixin } from "./classes/ShoppingList.js"
 import { LocalStore } from "./classes/LocalStore.js"
 import { logBasket } from './decorators/log.js'
 
@@ -22,6 +22,8 @@ let listaCompra = (function() {
   function create() {
     // Aquí podemos añadir los métodos y propiedades particulares de la instancia
     const dataStore = new LocalStore('lista-compra')
+    // Mixin
+    Object.assign(ShoppingList.prototype, withTotalMixin)
     return new ShoppingList(dataStore)
   }
 })()
@@ -87,6 +89,7 @@ function loadShoppingList() {
       addToElementsList(carrito.basket[i])
     }
   }
+  resetFormState()
 }
 
 function addToShoppingList() {
@@ -95,8 +98,15 @@ function addToShoppingList() {
   const carrito = listaCompra.get()
 
   if (nombreArticulo !== '') {
+    const campoPrecio = document.getElementById('precio')
+    const campoQty = document.getElementById('qty')
+    const qtyArticulo = campoQty.value || 1
+    const precioArticulo = campoPrecio.value || 0
     // Patrón: Adapter
-    const nuevoArticulo = fabricaArticulos.createTranslatedArticle(ARTICLE_TYPES.SIMPLE, nombreArticulo)
+    const nuevoArticulo = fabricaArticulos.createTranslatedArticle(ARTICLE_TYPES.COMPLEX,
+        nombreArticulo,
+        qtyArticulo,
+        precioArticulo)
     // Patrón: Observer
     carrito.addItem(nuevoArticulo)
   }
@@ -107,7 +117,14 @@ function addToElementsList(nuevoArticulo) {
   const elemento = document.createElement('li')
   const boton = document.createElement('button')
   // Patrón: Observer
-  elemento.innerText = nuevoArticulo.name
+  let elementText = nuevoArticulo.name
+  if (nuevoArticulo?.qty > 0) {
+    elementText = `${elementText} x ${nuevoArticulo.qty}`
+  }
+  if (nuevoArticulo?.price > 0) {
+    elementText = `${elementText} @ ${nuevoArticulo.price}€`
+  }
+  elemento.innerText = elementText
   elemento.id = nuevoArticulo.id
   boton.innerText = 'BORRAR'
   boton.addEventListener('click', removeFromShoppingList.bind(this, nuevoArticulo), { once: true })
@@ -145,10 +162,16 @@ function resetShoppingList() {
 
 function resetFormState() {
   const campoArticulo = document.getElementById('articulo')
+  const campoQty = document.getElementById('qty')
+  const campoPrecio = document.getElementById('precio')
   const botonArticulo = document.getElementById('nuevoArticulo')
+  const totalLista = document.getElementById('total')
   const carrito = listaCompra.get()
   campoArticulo.value = ''
+  campoQty.value = 1
+  campoPrecio.value = 0
   botonArticulo.setAttribute('disabled', undefined)
+  totalLista.innerText = `${carrito.getTotal()}€`
   // Patrón: Decorator
   carrito.log()
 }

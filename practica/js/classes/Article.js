@@ -1,4 +1,4 @@
-import { translateString, translate } from '../utils/translate.js'
+import { translate } from '../utils/translate.js'
 
 // Patrón: Factory
 class SimpleArticle {
@@ -7,12 +7,12 @@ class SimpleArticle {
     this.id = ''
   }
 }
-// Herencia
+// Herencia & Mixin
 class ComplexArticle extends SimpleArticle {
   constructor(name, qty, price) {
     super(name)
-    this.qty = qty
-    this.price = price
+    this.qty = qty || 1
+    this.price = price || 0
   }
 }
 // Patrón: Prototype

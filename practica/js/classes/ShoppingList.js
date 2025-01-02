@@ -56,6 +56,8 @@ export class ShoppingList {
     if (this.validate.isString(newItem.name, 'Article name')) {
       const timestamp = new Date()
       newItem.id = `${newItem.name}_${String(timestamp.getTime())}`
+      newItem.qty = Number(newItem?.qty)
+      newItem.price = Number(newItem?.price)
       this._addToDataStore(newItem)
       return true
     } else {
@@ -100,5 +102,14 @@ export class ShoppingList {
         this.#observers.splice(index, 1)
       }
     })
+  }
+}
+
+// Mixin
+export const withTotalMixin = {
+  getTotal() {
+    let total = 0
+    this.basket.forEach(item => total += item.price * item.qty ?? 0)
+    return total
   }
 }
