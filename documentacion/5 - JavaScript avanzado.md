@@ -88,9 +88,9 @@ Lecturas recomendadas:
 ## Programación orientada a objetos
 
 * Prototipos
-* Call, Apply, Bind
+* [Call](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call), [Apply](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply), [Bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
 * Herencia
-* Mixin
+* [Mixin](https://developer.mozilla.org/en-US/docs/Glossary/Mixin)
 
 ## Modelo Vista Controlador
 
