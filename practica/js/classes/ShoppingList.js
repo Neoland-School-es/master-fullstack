@@ -1,4 +1,6 @@
 // Bussiness Object: Shopping List
+import { addStringValidation } from '../decorators/validate.js'
+
 export class ShoppingList {
   // Private fields
   #basket
@@ -7,6 +9,8 @@ export class ShoppingList {
   constructor(store) {
     this.#store = store
     this.#basket = this.#store.items
+    // Patrón: Decorator
+    addStringValidation(this)
   }
 
   get basket() {
@@ -24,16 +28,19 @@ export class ShoppingList {
 
   // Publich methods
   addItem(newItem) {
-    if (typeof newItem.name === 'string') {
-      this._addToDataStore(newItem)
-    } else {
-      try {
-        throw new TypeError('Article must have a name')
-      } catch (e) {
-        console.error(e.name, e.message)
-        if (e instanceof TypeError) console.log(e.stack)
-      }
+    if (this.validate.isString(newItem.value, 'Article')) {
+        this._addToDataStore(newItem)
     }
+    // if (typeof newItem.name === 'string') {
+    //   this._addToDataStore(newItem)
+    // } else {
+    //   try {
+    //     throw new TypeError('Article must have a name')
+    //   } catch (e) {
+    //     console.error(e.name, e.message)
+    //     if (e instanceof TypeError) console.log(e.stack)
+    //   }
+    // }
   }
 
   emptyBasket() {
