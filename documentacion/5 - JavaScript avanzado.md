@@ -91,6 +91,7 @@ Lecturas recomendadas:
 * [Call](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call), [Apply](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply), [Bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
 * Herencia
 * [Mixin](https://developer.mozilla.org/en-US/docs/Glossary/Mixin)
+* [Assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
 
 ## Modelo Vista Controlador
 
