@@ -69,7 +69,7 @@ Para más información, mejor [leer la referencia](https://git-scm.com/docs/gitm
 ## [Principios de programación SOLID](https://en.wikipedia.org/wiki/SOLID)
 
 * **Single responsibility principle:** cada clase debería tener una única responsabilidad
-* **Open–closed principle:** las entidades deberían ser abiertas a la hora de poder extenderlas, pero cerradas a la hora de modificarlas
+* **Open-closed principle:** las entidades deberían ser abiertas a la hora de poder extenderlas, pero cerradas a la hora de modificarlas
 * **Liskov substitution principle:** el uso de métodos o referencias de una clase base no de cambiar al ser usadas desde una clase derivada
 * **Interface segregation principle:** eliminación de dependencias innecesarias
 * **Dependency inversion principle:** los estados dependen de abstracciones, no de concreciones
