@@ -1,4 +1,4 @@
-import { translateString } from '../utils/translate.js'
+import { translateString, translate } from '../utils/translate.js'
 
 // Patrón: Factory
 class SimpleArticle {
@@ -15,6 +15,14 @@ class ComplexArticle extends SimpleArticle {
   }
 }
 // Patrón: Prototype
+/**
+ * Ejemplo de uso:
+ * const ejemploPrototipoLeche = Object.create(articuloLeche)
+ * console.log(ejemploPrototipoLeche,
+ *   ejemploPrototipoLeche.name,
+ *   ejemploPrototipoLeche.qty,
+ *   ejemploPrototipoLeche.price)
+ */
 export const articuloLeche = {
   name: 'leche',
   qty: 12,
@@ -51,6 +59,7 @@ export class ArticleFactory {
 function translateArticle(article) {
   return {
     ...article,
-    name: translateString(article.name)
+    // Patrón: Command Pattern
+    name: translate.toEnglish(article.name)
   }
 }

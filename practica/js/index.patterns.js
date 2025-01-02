@@ -40,12 +40,8 @@ function onDOMContentLoaded() {
   botonNuevaLista.addEventListener('click', onNewListClick)
 
   loadShoppingList()
-  // Patrón: Prototype
-  // const ejemploPrototipoLeche = Object.create(articuloLeche)
-  // console.log(ejemploPrototipoLeche,
-  //   ejemploPrototipoLeche.name,
-  //   ejemploPrototipoLeche.qty,
-  //   ejemploPrototipoLeche.price)
+  // Patrón: Observer
+  listaCompra.get().subscribe('formulario', 'add', addToElementsList)
 }
 
 function onFormSubmit(e) {
@@ -98,18 +94,18 @@ function addToShoppingList(){
   const carrito = listaCompra.get()
 
   if (nombreArticulo !== '') {
-    // const nuevoArticulo = fabricaArticulos.createArticle(ARTICLE_TYPES.SIMPLE, nombreArticulo)
     // Patrón: Adapter
     const nuevoArticulo = fabricaArticulos.createTranslatedArticle(ARTICLE_TYPES.SIMPLE, nombreArticulo)
+    // Patrón: Observer
     carrito.addItem(nuevoArticulo)
-    addToElementsList(nuevoArticulo.name)
   }
 }
 
 function addToElementsList(nuevoArticulo){
   const listaArticulos = document.getElementById('lista')
   const elemento = document.createElement('li')
-  elemento.innerText = nuevoArticulo
+  // Patrón: Observer
+  elemento.innerText = nuevoArticulo.name
   listaArticulos.appendChild(elemento)
   resetFormState()
 }
