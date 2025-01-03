@@ -209,17 +209,59 @@ import { name as squareNameThree } from 'https://example.com/shapes/square.js';
 
 ## Conceptos avanzados de JavaScript
 
-### Closures
+* [Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
+* [Scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope)
+* [Namespaces](https://developer.mozilla.org/en-US/docs/Glossary/Namespace)
+* [Currying](https://javascript.info/currying-partials)
+* Control de timeouts en peticiones XHR con AbortSignal
 
-### [Namespaces](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import#module_namespace_object)
+Aplicando el uso de la API de [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) podemos optimizar las llamadas fetch de nuestra aplicación, y controlarlas de manera más profesional.
 
-### Currying
+```js
+// 1. Definimos nuestra propia clase para gestionar los errores,
+// ya que las peticiones erróneas no devuelven un status adecuado cuando lanzan un error normal:
+export class HttpError extends Error {
+  constructor(response) {
+    super(`HTTP error ${response.status}`);
+  }
+}
+```
 
-### Context
+```js
+// 2. Creamos un método para gestionar las peticiones fetch que se aproveche de la clase anterior:
+export async function simpleFetch (url, options) {
+  const result = await fetch(url, options);
+  if (!result.ok) {
+    throw new HttpError(result);
+  }
+  return (await result.json());
+}
+```
 
-### Control de timeouts en peticiones XHR con abort
+De esta manera, podríamos usar:
 
-### Expresiones regulares
+```js
+try {
+  const result = await simpleFetch('/url', {
+    // Si la petición tarda demasiado, la abortamos
+    signal: AbortSignal.timeout(3000),
+  });
+} catch (err) {
+  if (err.name === 'AbortError') {
+    console.error('Fetch abortado');
+  }
+  if (err instanceof HttpError) {
+    if (err.response.status === 404) {
+      console.error('Not found');
+    }
+    if (err.response.status === 500) {
+      console.error('Internal server error');
+    }
+  }
+}
+```
+
+* [Expresiones regulares](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp): [regexr](https://regexr.com/), [regex101](https://regex101.com/)
 
 ## Tipado de variables
 
