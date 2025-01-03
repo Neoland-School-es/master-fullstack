@@ -1,5 +1,5 @@
 // Bussiness Object: Shopping List
-import { addStringValidation } from '../decorators/validate.js'
+import { addStringValidation } from 'decorators/validate'
 
 export class ShoppingList {
   // Private fields

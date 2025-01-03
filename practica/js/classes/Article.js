@@ -1,4 +1,5 @@
-import { translate } from '../utils/translate.js'
+// Model definitions
+import { translate } from 'utils/translate'
 
 // Patrón: Factory
 class SimpleArticle {

@@ -1,33 +1,12 @@
-import { ARTICLE_TYPES, ArticleFactory } from "./classes/Article.js"
-import { ShoppingList, withTotalMixin } from "./classes/ShoppingList.js"
-import { LocalStore } from "./classes/LocalStore.js"
-import { logBasket } from './decorators/log.js'
+import { ARTICLE_TYPES } from 'classes/Article'
 
+let fabricaArticulos
 // Dynamic import:
-// Patrón: Factory
-const fabricaArticulos = new ArticleFactory
-// Patrón: Singleton (IEEF)
-let listaCompra = (function() {
-  let shoppingListInstance
-
-  return {
-    get: () => {
-      if (!shoppingListInstance) {
-        // Patrón: Decorator
-        shoppingListInstance = logBasket(create())
-      }
-      return shoppingListInstance
-    }
-  }
-
-  function create() {
-    // Aquí podemos añadir los métodos y propiedades particulares de la instancia
-    const dataStore = new LocalStore('lista-compra')
-    // Mixin
-    Object.assign(ShoppingList.prototype, withTotalMixin)
-    return new ShoppingList(dataStore)
-  }
-})()
+import('classes/Article').then((ArticleModule) => {
+  // Patrón: Factory
+  fabricaArticulos = new ArticleModule.ArticleFactory
+});
+let listaCompra
 
 document.addEventListener('DOMContentLoaded', onDOMContentLoaded)
 
@@ -42,11 +21,7 @@ function onDOMContentLoaded() {
   botonArticulo.addEventListener('click', onNewArticleClick)
   botonNuevaLista.addEventListener('click', onNewListClick)
 
-  // Dynamic import:
-  loadShoppingList()
-  // Patrón: Observer
-  listaCompra.get().subscribe('formulario', 'add', addToElementsList)
-  listaCompra.get().subscribe('formulario', 'remove', removeFromElementsList)
+  setUpShoppingList()
 }
 
 function onFormSubmit(e) {
@@ -92,6 +67,47 @@ function loadShoppingList() {
     }
   }
   resetFormState()
+}
+
+function setUpShoppingList() {
+  // Dynamic import:
+  Promise.all([
+    import('classes/ShoppingList'),
+    import('classes/LocalStore'),
+    import('decorators/log')
+  ]).then((Modules) => {
+    const ShoppingList = Modules[0].ShoppingList
+    const withTotalMixin = Modules[0].withTotalMixin
+    const LocalStore = Modules[1].LocalStore
+    const logBasket = Modules[2].logBasket
+
+    // Patrón: Singleton (IEEF)
+    listaCompra = (function() {
+      let shoppingListInstance
+
+      return {
+        get: () => {
+          if (!shoppingListInstance) {
+            // Patrón: Decorator
+            shoppingListInstance = logBasket(create())
+          }
+          return shoppingListInstance
+        }
+      }
+
+      function create() {
+        // Aquí podemos añadir los métodos y propiedades particulares de la instancia
+        const dataStore = new LocalStore('lista-compra')
+        // Mixin
+        Object.assign(ShoppingList.prototype, withTotalMixin)
+        return new ShoppingList(dataStore)
+      }
+    })()
+    loadShoppingList()
+    // Patrón: Observer
+    listaCompra.get().subscribe('formulario', 'add', addToElementsList)
+    listaCompra.get().subscribe('formulario', 'remove', removeFromElementsList)
+  })
 }
 
 function addToShoppingList() {
