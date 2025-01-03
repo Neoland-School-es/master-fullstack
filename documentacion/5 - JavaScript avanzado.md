@@ -105,17 +105,113 @@ Patrones de arquitectura
 
 Lectura recomendada: [Arquitectura orientada al dominio](https://dev.to/itswillt/a-different-approach-to-frontend-architecture-38d4)
 
-### Inyección de dependencias
+## Inyección de dependencias
 
-### Módulos
+### [Módulos](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
 
-### Importación dinámica de módulos
+[Importación de archivos estáticos](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import/with):
+
+```js
+import data from "https://example.com/data.json" with { type: "json" };
+import styles from "https://example.com/styles.css" with { type: "css" };
+```
+
+[Importación dinámica de módulos](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#dynamic_module_loading)
+
+Importar un módulo sólo para obtener sus _side effects_:
+
+```js
+(async () => {
+  if (somethingIsTrue) {
+    await import("/modules/my-module.js");
+  }
+})();
+```
+
+Importar un módulo dinámicamente, respondiendo al momento en el que se descargue:
+
+```js
+import * as mod from "/my-module.js";
+
+import("/my-module.js").then((mod2) => {
+  console.log(mod === mod2); // true
+});
+```
+
+```js
+const main = document.querySelector("main");
+for (const link of document.querySelectorAll("nav > a")) {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    import("/modules/my-module.js")
+      .then((module) => {
+        module.loadPageInto(main);
+      })
+      .catch((err) => {
+        main.textContent = err.message;
+      });
+  });
+}
+```
+
+Importar módulos según el entorno de ejecución:
+
+```js
+let myModule;
+
+if (typeof window === "undefined") {
+  myModule = await import("module-used-on-server");
+} else {
+  myModule = await import("module-used-in-browser");
+}
+```
+
+Importar módulos en bloque iterando arrays:
+
+```js
+Promise.all(
+  Array.from({ length: 10 }).map(
+    (_, index) => import(`/modules/module-${index}.js`),
+  ),
+).then((modules) => modules.forEach((module) => module.load()));
+```
+
+Exportación asíncrona:
+
+```js
+const colors = fetch("../data/colors.json").then((response) => response.json());
+
+export default await colors;
+```
+
+[Import maps](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#importing_modules_using_import_maps)
+
+```json
+<script type="importmap">
+  {
+    "imports": {
+      "shapes": "./shapes/square.js",
+      "shapes/square": "./modules/shapes/square.js",
+      "https://example.com/shapes/square.js": "./shapes/square.js",
+      "https://example.com/shapes/": "/shapes/square/",
+      "../shapes/square": "./shapes/square.js"
+    }
+  }
+</script>
+```
+
+```js
+import { name as squareNameOne } from "shapes";
+import { name as squareNameTwo } from "shapes/square";
+import { name as squareNameThree } from "https://example.com/shapes/square.js";
+```
 
 ## Conceptos avanzados de JavaScript
 
 ### Closures
 
-### Namespaces
+### [Namespaces](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import#module_namespace_object)
 
 ### Currying
 
