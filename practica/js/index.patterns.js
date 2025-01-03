@@ -1,4 +1,4 @@
-import { ARTICLE_TYPES, ArticleFactory, articuloLeche } from "./classes/Article.js"
+import { ARTICLE_TYPES, ArticleFactory } from "./classes/Article.js"
 import { ShoppingList, withTotalMixin } from "./classes/ShoppingList.js"
 import { LocalStore } from "./classes/LocalStore.js"
 import { logBasket } from './decorators/log.js'
