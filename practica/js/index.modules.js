@@ -1,4 +1,5 @@
 import { ARTICLE_TYPES } from 'classes/Article'
+import { simpleFetch } from 'utils/simpleFetch'
 
 let fabricaArticulos
 // Dynamic import:
@@ -13,22 +14,25 @@ document.addEventListener('DOMContentLoaded', onDOMContentLoaded)
 function onDOMContentLoaded() {
   const formulario = document.getElementById('formulario')
   const campoArticulo = document.getElementById('articulo')
+  const campoFiltro = document.getElementById('filtro')
   const botonArticulo = document.getElementById('nuevoArticulo')
   const botonNuevaLista = document.getElementById('nuevaLista')
 
   formulario.addEventListener('submit', onFormSubmit)
-  campoArticulo.addEventListener('keyup', onInputKeyUp)
+  campoArticulo.addEventListener('keyup', onArticleNameKeyUp)
+  campoFiltro.addEventListener('keyup', onFilterKeyUp)
   botonArticulo.addEventListener('click', onNewArticleClick)
   botonNuevaLista.addEventListener('click', onNewListClick)
 
   setUpShoppingList()
+  getProducts()
 }
 
 function onFormSubmit(e) {
   e.preventDefault()
 }
 
-function onInputKeyUp(e) {
+function onArticleNameKeyUp(e) {
   e.stopPropagation()
   const botonArticulo = document.getElementById('nuevoArticulo')
 
@@ -47,6 +51,23 @@ function onInputKeyUp(e) {
   } else {
     botonArticulo.setAttribute('disabled', undefined)
   }
+}
+
+function onFilterKeyUp(e) {
+  e.stopPropagation()
+  const listaArticulos = document.getElementById('lista')
+  const textoFiltro = this.value
+
+  listaArticulos.childNodes
+    .forEach((node) => {
+      if (node.nodeType === 1) {
+        if (textoFiltro !== '' && node.innerText.includes(textoFiltro)) {
+          node.setAttribute('hidden', true)
+        } else {
+          node.removeAttribute('hidden')
+        }
+      }
+    })
 }
 
 function onNewArticleClick(e) {
@@ -192,4 +213,17 @@ function resetFormState() {
   totalLista.innerText = `${carrito.getTotal()}€`
   // Patrón: Decorator
   carrito.log()
+}
+
+function getProducts() {
+  const productsURL = 'https://dummyjson.com/products'
+  simpleFetch(productsURL).then((listaProductos) => {
+    const productos = document.getElementById('productos')
+    console.log(listaProductos)
+    listaProductos.products.forEach((product) => {
+      const opcion = document.createElement('option')
+      opcion.value = product.title
+      productos.appendChild(opcion)
+    })
+  })
 }

@@ -22,11 +22,19 @@
   <body>
     <h1>Lista de la compra <span id="total"></span></h1>
     <form id="formulario">
-      <input type="text" id="articulo" placeholder="nuevo artículo" />
-      <input type="number" id="qty" placeholder="0" min="0" max="10" step="1" />
-      <input type="number" id="precio" placeholder="0€" min="0" max="100" step="1" />
-      <button type="button" id="nuevoArticulo" disabled>Añadir</button>
-      <button type="reset" id="nuevaLista">Nueva lista de la compra</button>
+      <fieldset>
+        <legend>Añadir a la lista</legend>
+        <datalist id="productos"></datalist>
+        <input type="text" id="articulo" placeholder="nuevo artículo" list="productos" autocomplete="off" />
+        <input type="number" id="qty" placeholder="0" min="0" max="10" step="1" />
+        <input type="number" id="precio" placeholder="0€" min="0" max="100" step="1" />
+        <button type="button" id="nuevoArticulo" disabled>Añadir</button>
+        <button type="reset" id="nuevaLista">Nueva lista de la compra</button>
+      </fieldset>
+      <fieldset>
+        <legend>Filtrar</legend>
+        <input type="text" id="filtro" placeholder="nombre del artículo" autocomplete="off" />
+      </fieldset>
     </form>
     <ul id="lista">
       <li>No hay nada que comprar</li>

@@ -25,3 +25,12 @@ li button {
 input[type="number"] {
   text-align: right;
 }
+
+form {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  fieldset {
+    flex-grow: 1;
+  }
+}
