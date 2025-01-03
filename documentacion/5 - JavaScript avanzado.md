@@ -213,6 +213,7 @@ import { name as squareNameThree } from 'https://example.com/shapes/square.js';
 * [Scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope)
 * [Namespaces](https://developer.mozilla.org/en-US/docs/Glossary/Namespace)
 * [Currying](https://javascript.info/currying-partials)
+* [Expresiones regulares](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp): [regexr](https://regexr.com/), [regex101](https://regex101.com/)
 * Control de timeouts en peticiones XHR con AbortSignal
 
 Aplicando el uso de la API de [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) podemos optimizar las llamadas fetch de nuestra aplicación, y controlarlas de manera más profesional.
@@ -260,8 +261,6 @@ try {
   }
 }
 ```
-
-* [Expresiones regulares](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp): [regexr](https://regexr.com/), [regex101](https://regex101.com/)
 
 ## Tipado de variables
 
