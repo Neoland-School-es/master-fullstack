@@ -74,6 +74,14 @@ Para más información, mejor [leer la referencia](https://git-scm.com/docs/gitm
 * **Interface segregation principle:** eliminación de dependencias innecesarias
 * **Dependency inversion principle:** los estados dependen de abstracciones, no de concreciones
 
+## Programación orientada a objetos
+
+* [Clases](https://developer.mozilla.org/en-US/docs/Glossary/Class)
+* Prototipos
+* Herencia
+* [Mixin](https://developer.mozilla.org/en-US/docs/Glossary/Mixin)
+* [Call](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call), [Apply](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply), [Bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind), [Assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
+
 ## [Patrones de diseño en JS](https://refactoring.guru/design-patterns)
 
 * Creacional: esta categoría se centra en los mecanismos de creación de objetos que optimizan y controlan la creación de objetos. Ejemplos: Factory, Builder, Singleton, Abstract y Prototype
@@ -85,14 +93,9 @@ Lecturas recomendadas:
 * [Patrones de arquitectura y diseño en JavaScript](https://medium.com/@hjkmines/javascript-design-and-architectural-patterns-cfa900c6fe41)
 * [Decoradores en JavaScript](https://www.sitepoint.com/javascript-decorators-what-they-are/)
 
-## Programación orientada a objetos
-
-* Prototipos
-* Herencia
-* [Mixin](https://developer.mozilla.org/en-US/docs/Glossary/Mixin)
-* [Call](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call), [Apply](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply), [Bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind), [Assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
-
 ## Modelo Vista Controlador
+
+![Modelo Vista Controlador en JS](./assets/MVC.jpg)
 
 Patrones de arquitectura
 
@@ -106,6 +109,8 @@ Patrones de arquitectura
 Lectura recomendada: [Arquitectura orientada al dominio](https://dev.to/itswillt/a-different-approach-to-frontend-architecture-38d4)
 
 ## Inyección de dependencias
+
+* [Gestión de Paquetes y librerías](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Client-side_tools/Package_management)
 
 ### [Módulos](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
 
@@ -264,27 +269,136 @@ try {
 
 ## Tipado de variables
 
-### Tipado nativo de JavaScript
+* Tipado nativo en JavaScript (typeof):
 
-### Tipado con Typescript
+```js
+/**
+ * ejemplo de uso
+ *
+ * import { StringType } from './types/types.js'
+ * let cadena = new StringType(1)
+ * console.log('on load', cadena, cadena[0])
+ */
+export class StringType extends String {
+  constructor(value) {
+    super(value)
+    if (typeof value !== 'string') {
+      console.error(`${value} must be an string`)
+    }
+  }
+}
+```
 
-### Validación de tipados con JSDOC
+* [Typescript](https://www.typescriptlang.org/)
+
+```bash
+npm install typescript --save-dev
+npx tsc --init
+```
+
+* [Validación de tipados con JSDOC en Typescript](https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html)
+* [Referencia de JSDOC](https://jsdoc.app/)
 
 ## Reactividad (signals)
 
+* [tc39 proposal](https://github.com/tc39/proposal-signals)
+* [Signals in JS](https://medium.com/@davletovalmir/what-are-signals-in-js-lets-build-one-and-find-out-0bd917dc0f35)
+
 ## REDUX Store
 
-## Web Sockets
+![Redux](https://redux.js.org/assets/images/ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26.gif)
 
-## Web Workers
+* [REDUX JS](https://redux.js.org/)
 
-## Testeo unitario y End to End
+## [Web Sockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
 
-* Jest, Mocha, Chai
-* Cypress, Playwright, Vitest
-* Node Testing Library
+```js
+// Create WebSocket connection.
+const socket = new WebSocket("ws://localhost:8080");
 
-## Aplicaciones Progresivas (PWA)
+// Connection opened
+socket.addEventListener("open", (event) => {
+  socket.send("Hello Server!");
+});
 
-* APIs del navegador
-* Manifest .appcache
+// Listen for messages
+socket.addEventListener("message", (event) => {
+  console.log("Message from server ", event.data);
+});
+
+```
+
+## [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
+
+Para inspeccionar los workers en el navegador hay que entrar en esta dirección: [chrome://inspect/#pages](chrome://inspect/#pages).
+
+* [Ejemplo de proyecto con Web Workers](https://github.com/mdn/dom-examples/tree/main/web-workers/simple-web-worker)
+
+## Testing
+
+Técnica de programación [TDD](https://softwarecrafters.io/javascript/tdd-test-driven-development) (Test Driven Development).
+
+```bash
+npm install --save-dev jest
+npm install --save-dev jest-environment-jsdom
+```
+
+Añadir los siguientes comandos al archivo ```package.json```:
+
+```json
+"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+"test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll",
+```
+
+Con ésto ya tenemos disponibles los comandos para ejecutar los tests:
+
+```bash
+npm run test
+npm run test:watch
+```
+
+Crear el archivo ```jest.config.js```:
+
+```js
+// @ts-check
+
+/** @type {import('jest').Config} */
+const config = {
+  verbose: true,
+  testEnvironment: 'jsdom',
+  moduleNameMapper: {
+    '^classes\/(.*)': '<rootDir>/src/js/classes/$1.js',
+    '^decorators\/(.*)': '<rootDir>/src/js/decorators/$1.js',
+    '^utils\/(.*)': '<rootDir>/src/js/utils/$1.js',
+  }
+}
+
+export default config
+```
+
+Crea la carpeta ```__tests__``` y crea un archivo ```index.test.js```.
+
+Documentación:
+
+* Testeo unitario
+  * [Jest](https://jestjs.io/es-ES/docs/getting-started)
+  * [Mocha](https://mochajs.org/)
+  * [Chai](https://www.chaijs.com/)
+* End to End
+  * [Cypress](https://www.cypress.io/)
+  * [Playwright](https://playwright.dev/)
+  * [Vitest](https://vitest.dev/)
+  * [Node Test Runner](https://nodejs.org/api/test.html#test-runner)
+
+## Aplicaciones Progresivas
+
+* [PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
+* [Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest)
+* [What PWA can do today](https://whatpwacando.today/)
+* [Plugin PWA Studio](https://marketplace.visualstudio.com/items?itemName=PWABuilder.pwa-studio)
+
+## [Git Hooks](./Git%20Hooks.md)
+
+* [Linters](./Linters.md)
+
+## [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
