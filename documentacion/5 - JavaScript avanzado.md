@@ -392,6 +392,8 @@ Documentación:
 
 ## Aplicaciones Progresivas
 
+[Plugin para VS Code PWA Studio](https://marketplace.visualstudio.com/items?itemName=PWABuilder.pwa-studio)
+
 * [PWA](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
 * [Web App Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest)
 * [What PWA can do today](https://whatpwacando.today/)
