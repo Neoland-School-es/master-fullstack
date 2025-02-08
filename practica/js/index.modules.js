@@ -113,6 +113,11 @@ function setUpShoppingList() {
             shoppingListInstance = logBasket(create())
           }
           return shoppingListInstance
+        },
+        log: () => {
+          if (shoppingListInstance) {
+            shoppingListInstance.log()
+          }
         }
       }
 
@@ -215,14 +220,18 @@ function resetFormState() {
   carrito.log()
 }
 
+/**
+ * Gets the list of products from dummyjson.com and fills the <datalist>
+ * element with the product titles
+ */
 function getProducts() {
-  const productsURL = 'https://dummyjson.com/products'
+  const productsURL = 'api/articles.json'
   simpleFetch(productsURL).then((listaProductos) => {
     const productos = document.getElementById('productos')
     console.log(listaProductos)
-    listaProductos.products.forEach((product) => {
+    listaProductos.forEach((product) => {
       const opcion = document.createElement('option')
-      opcion.value = product.title
+      opcion.value = product.name
       productos.appendChild(opcion)
     })
   })
