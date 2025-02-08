@@ -212,8 +212,8 @@ import { name as squareNameThree } from 'https://example.com/shapes/square.js';
 
 ## Conceptos avanzados de JavaScript
 
-* [Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
 * [Scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope)
+* [Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
 * [Namespaces](https://developer.mozilla.org/en-US/docs/Glossary/Namespace)
 * Control de timeouts en peticiones XHR con AbortSignal
 
