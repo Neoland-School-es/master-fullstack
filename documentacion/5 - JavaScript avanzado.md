@@ -288,7 +288,8 @@ export class StringType extends String {
 * [Typescript](https://www.typescriptlang.org/)
 
 ```bash
-npm install typescript --save-dev
+npm install --save-dev jsdoc
+npm install --save-dev typescript
 npx tsc --init
 ```
 
