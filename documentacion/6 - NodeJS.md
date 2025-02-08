@@ -17,8 +17,8 @@
 
 ```js
 // /server/index.js
-var http = require('http');
-var url = require("url");
+import * as http from "node:http";
+import * as url from "node:url";
 
 http.createServer(function server_onRequest (request, response) {
     var pathname = url.parse(request.url).pathname;
@@ -31,6 +31,30 @@ http.createServer(function server_onRequest (request, response) {
 }).listen(process.env.PORT, process.env.IP);
 
 console.log('Server running at http://' + process.env.IP + ':' + process.env.PORT + '/');
+```
+
+Creación del archivo .env:
+
+```yaml
+PORT=1337
+IP=127.0.0.1
+```
+
+Ejecución con el archivo de configuración de entornos:
+
+```bash
+node --env-file=.env --watch server/index.js
+```
+
+Solución de problemas de CORS: añadir las cabeceras a la response.
+
+```js
+response.setHeader('Access-Control-Allow-Origin', '*');
+response.setHeader('Content-Type', 'application/json');
+response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+response.setHeader("Access-Control-Allow-Headers", "*");
+response.setHeader('Access-Control-Max-Age', 2592000); // 30 days
+response.writeHead(200);
 ```
 
 ## El sistema de ficheros
@@ -111,6 +135,22 @@ response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-typ
 
 // Establecer a true si deseas que las cookies sean compartidas
 response.setHeader('Access-Control-Allow-Credentials', true);
+```
+
+## [Modificando archivos](https://nodejs.org/en/learn/manipulating-files/writing-files-with-nodejs)
+
+```js
+import * as fs from "node:fs";
+
+const content = 'Some content!';
+
+fs.writeFile('/Users/joe/test.txt', content, err => {
+  if (err) {
+    console.error(err);
+  } else {
+    // file written successfully
+  }
+});
 ```
 
 ## Cookies
