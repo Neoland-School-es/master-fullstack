@@ -25,6 +25,13 @@ function onDOMContentLoaded() {
 
   getUsualProducts()
   setUpShoppingList()
+
+  // Set up reactivity
+  window.addEventListener('stateChanged', (event) => {
+    const customEvent = /** @type {CustomEvent} */(event)
+    const changes = customEvent.detail?.changes
+    console.log('state changed', changes?.articles)
+  })
 }
 
 /**
