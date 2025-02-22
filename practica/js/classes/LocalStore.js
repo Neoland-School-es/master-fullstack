@@ -64,7 +64,7 @@ export class LocalStore {
    * @throws Will throw an error if the item does not exist in the store.
    */
   removeItem(item) {
-    const index = this.#items.findIndex(loopItem => /** @type {ComplexArticle} */(loopItem).id === item.id)
+    const index = this.#items.findIndex(loopItem => /** @type {ComplexArticle} */(loopItem)._id === item._id)
     this.#items.splice(index, 1)
     this._setDataToLocalStorage(this.#items)
   }
