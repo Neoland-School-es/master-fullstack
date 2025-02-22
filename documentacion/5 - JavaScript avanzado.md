@@ -296,40 +296,16 @@ npx tsc --init
 * [Validación de tipados con JSDOC en Typescript](https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html)
 * [Referencia de JSDOC](https://jsdoc.app/)
 
-## Reactividad (signals)
-
-* [tc39 proposal](https://github.com/tc39/proposal-signals)
-* [Signals in JS](https://medium.com/@davletovalmir/what-are-signals-in-js-lets-build-one-and-find-out-0bd917dc0f35)
-
 ## REDUX Store
 
 ![Redux](https://redux.js.org/assets/images/ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26.gif)
 
 * [REDUX JS](https://redux.js.org/)
 
-## [Web Sockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+## Reactividad
 
-```js
-// Create WebSocket connection.
-const socket = new WebSocket("ws://localhost:8080");
-
-// Connection opened
-socket.addEventListener("open", (event) => {
-  socket.send("Hello Server!");
-});
-
-// Listen for messages
-socket.addEventListener("message", (event) => {
-  console.log("Message from server ", event.data);
-});
-
-```
-
-## [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
-
-Para inspeccionar los workers en el navegador hay que entrar en esta dirección: [chrome://inspect/#pages](chrome://inspect/#pages).
-
-* [Ejemplo de proyecto con Web Workers](https://github.com/mdn/dom-examples/tree/main/web-workers/simple-web-worker)
+* [tc39 proposal](https://github.com/tc39/proposal-signals)
+* [Signals in JS](https://medium.com/@davletovalmir/what-are-signals-in-js-lets-build-one-and-find-out-0bd917dc0f35)
 
 ## Testing
 
@@ -399,5 +375,3 @@ Documentación:
 ## [Git Hooks](./Git%20Hooks.md)
 
 * [Linters](./Linters.md)
-
-## [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
