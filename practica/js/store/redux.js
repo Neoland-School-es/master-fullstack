@@ -41,7 +41,7 @@ const appReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ACTION_TYPES.CREATE_ARTICLE:
       // Simulate BBDD _id creation
-      if (actionWithArticle?.article) {
+      if (actionWithArticle?.article && !actionWithArticle?.article?._id) {
         actionWithArticle.article._id = Date.now().toString()
       }
       return {
@@ -73,8 +73,8 @@ const appReducer = (state = INITIAL_STATE, action) => {
         ...state,
         articles: []
       };
-      default:
-          return state;
+    default:
+      return state;
     }
 };
 /**
@@ -160,7 +160,6 @@ const createStore = (reducer) => {
    * @param {ActionTypeArticle} action
    * @param {function | undefined} [onEventDispatched]
    */
-  // Private methods
   const _dispatch = (action, onEventDispatched) => {
     let previousValue = currentState;
     let currentValue = currentReducer(currentState, action);

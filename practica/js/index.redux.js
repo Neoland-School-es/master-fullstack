@@ -139,6 +139,7 @@ function addToShoppingList() {
 function addToElementsList(nuevoArticulo) {
   const listaArticulos = document.getElementById('lista')
   const elemento = document.createElement('li')
+  const articulo = document.createElement('span')
   const boton = document.createElement('button')
 
   let elementText = nuevoArticulo.name
@@ -148,13 +149,39 @@ function addToElementsList(nuevoArticulo) {
   if (nuevoArticulo?.price > 0) {
     elementText = `${elementText} @ ${nuevoArticulo.price}€`
   }
-  elemento.innerText = elementText
+  articulo.innerText = elementText
+  articulo.classList.add('articulo')
+  articulo.addEventListener('click', buyArticle.bind(elemento, nuevoArticulo))
+  elemento.appendChild(articulo)
   elemento.id = nuevoArticulo._id
   boton.innerText = 'BORRAR'
   boton.addEventListener('click', removeFromShoppingList.bind(boton, nuevoArticulo), { once: true })
   elemento.appendChild(boton)
+  if (nuevoArticulo.bought) {
+    elemento.classList.add('bought')
+  }
   listaArticulos?.appendChild(elemento)
   resetFormState()
+}
+
+/**
+ * @param {ComplexArticle} articulo - Artículo comprado
+ * @this {HTMLElement}
+ */
+function buyArticle(articulo) {
+  const storeArticle = store.article.getById(articulo._id)
+  const articuloComprado = {
+    ...storeArticle,
+    bought: !storeArticle.bought
+  }
+  store.article.update(articuloComprado, () => {
+    setLocalStorageFromStore()
+    if (articuloComprado.bought) {
+      this.classList.add('bought')
+    } else {
+      this.classList.remove('bought')
+    }
+  })
 }
 
 /**

@@ -11,6 +11,22 @@ li {
   &:has(+ li) {
     margin: 0 0 1em;
   }
+  &.bought {
+    .articulo {
+      text-decoration: line-through;
+    }
+  }
+
+  .articulo {
+    display: inline-block;
+    line-height: 2em;
+    padding: 0 .5em;
+    border: 1px dotted black;
+    &:hover {
+      background-color: lightblue;
+      cursor: pointer;
+    }
+  }
 }
 ul li:first-child:has(+ li) {
   display: none;
@@ -19,6 +35,7 @@ button {
   cursor: pointer;
 }
 li button {
+  line-height: 2em;
   margin-left: 1em;
   float: right;
 }
