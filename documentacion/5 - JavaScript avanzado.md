@@ -90,6 +90,7 @@ Lecturas recomendadas:
 
 * [Patrones de arquitectura y diseño en JavaScript](https://medium.com/@hjkmines/javascript-design-and-architectural-patterns-cfa900c6fe41)
 * [Decoradores en JavaScript](https://www.sitepoint.com/javascript-decorators-what-they-are/)
+* [Patrones que aplican la reactividad](https://frontendmasters.com/blog/vanilla-javascript-reactivity/)
 
 ## Modelo Vista Controlador
 
@@ -301,12 +302,6 @@ npx tsc --init
 ![Redux](https://redux.js.org/assets/images/ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26.gif)
 
 * [REDUX JS](https://redux.js.org/)
-
-## Reactividad
-
-* [Patrones que aplican la reactividad](https://frontendmasters.com/blog/vanilla-javascript-reactivity/)
-* [tc39 proposal](https://github.com/tc39/proposal-signals)
-* [Signals in JS](https://medium.com/@davletovalmir/what-are-signals-in-js-lets-build-one-and-find-out-0bd917dc0f35)
 
 ## Testing
 
