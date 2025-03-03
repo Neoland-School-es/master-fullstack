@@ -272,7 +272,7 @@ function getUsualProducts() {
  * @param {HTMLElement | null} inputElement - The input element from which to get the value.
  * @returns {string} The value of the input element, or an empty string if the element is null.
  */
-function getInputValue(inputElement) {
+export function getInputValue(inputElement) {
   if (inputElement) {
     return /** @type {HTMLInputElement} */(inputElement).value
   } else {
@@ -285,7 +285,7 @@ function getInputValue(inputElement) {
  * @param {HTMLElement | null} inputElement - The input element on which to set the value.
  * @param {string} value - The value to set on the input element.
  */
-function setInputValue(inputElement, value) {
+export function setInputValue(inputElement, value) {
   if (inputElement) {
     /** @type {HTMLInputElement} */(inputElement).value = value
   }
@@ -297,7 +297,7 @@ function setInputValue(inputElement, value) {
  * @returns {State} Saved state.
  * If no data is found, returns an empty State object.
  */
-function getDataFromLocalStorage() {
+export function getDataFromLocalStorage() {
   const defaultValue = JSON.stringify(INITIAL_STATE)
   return JSON.parse(localStorage.getItem('shoppingList') || defaultValue)
 }
@@ -315,6 +315,6 @@ function setLocalStorageFromStore() {
  * Saves shopping list on localStorage
  * @param {State} storeValue
  */
-function updateLocalStorage(storeValue) {
+export function updateLocalStorage(storeValue) {
   localStorage.setItem('shoppingList', JSON.stringify(storeValue))
 }
