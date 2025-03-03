@@ -304,6 +304,7 @@ npx tsc --init
 
 ## Reactividad
 
+* [Patrones que aplican la reactividad](https://frontendmasters.com/blog/vanilla-javascript-reactivity/)
 * [tc39 proposal](https://github.com/tc39/proposal-signals)
 * [Signals in JS](https://medium.com/@davletovalmir/what-are-signals-in-js-lets-build-one-and-find-out-0bd917dc0f35)
 
