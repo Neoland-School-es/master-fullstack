@@ -2,7 +2,8 @@
   "type": "module",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll"
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll",
+    "server:start:watch": "node --env-file=.env --watch server/server.js"
   },
   "devDependencies": {
     "jest": "^29.7.0",
