@@ -3,11 +3,6 @@
 * [Instalación de Node, npm/x y nvm](../README.md#programas-necesarios)
 * [Desarrollando para el servidor](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side)
 
-## El motor V8 de Google y Node
-
-* [El motor V8 de Google](https://v8.dev/)
-* [Documentación de V8 en NodeJS](https://nodejs.org/docs/latest/api/v8.html)
-
 ## Creación de un paquete con node (package.json)
 
 * [Versionado de librerías](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Client-side_tools/Package_management)
@@ -60,10 +55,6 @@ response.writeHead(200);
 ## El sistema de ficheros
 
 [Módulo filesystem (fs)](https://nodejs.org/api/fs.html)
-
-* [Buffer](https://nodejs.org/api/buffer.html)
-* [Stream](https://nodejs.org/api/stream.html)
-* [Watch](https://nodejs.org/api/fs.html#fswatchfilename-options-listener)
 
 Ejemplo de uso de **fs**: [CRUD de BBDD en archivo local al servidor](https://www.freecodecamp.org/espanol/news/como-crear-una-aplicacion-crud-de-linea-de-comandos-con-node-js/)
 
@@ -216,10 +207,3 @@ En el mundo web, una sesión funciona así:
 2. **Durante la visita**: con cada solicitud que realizas al servidor (haciendo clic en enlaces, enviando formularios, etc.), el navegador envía esa cookie de sesión para recordarle al servidor quién eres. El servidor utiliza este ID para recuperar los datos de su sesión de su memoria o base de datos.
 3. **Almacenamiento de información**: estos datos de sesión pueden almacenar cualquier cosa, desde los artículos que ha agregado a un carrito de compras hasta si has iniciado sesión.
 4. **Finalización de la sesión**: cuando cierras la sesión, cierras el navegador o después de un período de inactividad, la sesión finaliza. Los datos de visita únicos que se encuentran en el servidor pueden borrarse.
-
-## Sockets
-
-* [TCP](https://nodejs.org/api/net.html): [ejemplo de servicor TCP y cliente](https://gist.github.com/tedmiston/5935757)
-* [Websockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
-  * [Ejemplo de uso con la librería ws](https://dev.to/hamzakhan/built-in-websockets-in-nodejs-2024-a-comprehensive-guide-2236)
-  * [Ejemplo de uso con la librería express-ws](https://www.scaler.com/topics/expressjs-tutorial/express-websocket/)
