@@ -3,14 +3,15 @@
 ## Instalación
 
 ```bash
-npm install --save express
+npm install --save-dev express
+npm install --save-dev @types/express
 ```
 
 Ejemplo de uso:
 
 ```js
 // /server/index.express.js
-const express = require('express')
+import express from 'express'
 const app = express()
 const port = 3000
 
@@ -23,27 +24,11 @@ app.listen(port, () => {
 })
 ```
 
-[Habilitar reinicio del servidor tras los cambios con Nodemon](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/skeleton_website#enable_server_restart_on_file_changes)
-
-```bash
-npm install --save-dev nodemon
-```
-
-Modificar los scripts de inicio, para Linux/MAC:
+Modificar los scripts de inicio:
 
 ```json
 "scripts": {
-  "start": "node ./bin/www",
-  "devstart": "nodemon ./bin/www",
-  "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart"
-}
-```
-
-Y para Windows:
-
-```json
-"scripts": {
-  "serverstart": "SET DEBUG=express-locallibrary-tutorial:* & npm run devstart"
+  "server:express:watch": "node --env-file=.env --watch server/server.express.js"
 }
 ```
 
@@ -51,7 +36,7 @@ Y para Windows:
 
 ```js
 // /server/router.express.js
-const express = require('express')
+import express from 'express'
 const app = express()
 
 // respond with "hello world" when a GET request is made to the homepage
