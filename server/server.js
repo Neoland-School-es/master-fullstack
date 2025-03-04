@@ -7,10 +7,15 @@ http.createServer(function server_onRequest(request, response) {
 
   console.log("Request for " + pathname + " received.");
 
+  // Sitios web que se pueden conectar a nuestro servidor
   response.setHeader('Access-Control-Allow-Origin', '*');
+  // Formato de la respuesta
   response.setHeader('Content-Type', 'application/json');
-  response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+  // Métodos de la solicitud que deseas permitir
+  response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  // Cabeceras de la solicitud que deseas permitir
   response.setHeader("Access-Control-Allow-Headers", "*");
+  // Tiempo de vida de la cache
   response.setHeader('Access-Control-Max-Age', 2592000); // 30 days
   response.writeHead(200, { 'Content-Type': 'text/html' });
 

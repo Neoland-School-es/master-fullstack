@@ -1,8 +1,9 @@
 //@ts-check
 import { ComplexArticle } from 'classes/Article'
 import { simpleFetch } from 'utils/simpleFetch'
+import { HttpError } from 'classes/HttpError'
 import { INITIAL_STATE, store } from 'store/redux'
-/** @import {State} from './store/redux.js' */
+/** @import {State, User} from './store/redux.js' */
 
 document.addEventListener('DOMContentLoaded', onDOMContentLoaded)
 
@@ -257,7 +258,9 @@ function resetFormState() {
  */
 function getUsualProducts() {
   const productsURL = 'api/articles.json'
-  simpleFetch(productsURL).then((listaProductos) => {
+  let headers = new Headers()
+  headers.append('Content-Type', 'application/json')
+  simpleFetch(productsURL, { headers: headers }).then((listaProductos) => {
     const productos = document.getElementById('productos')
     listaProductos.forEach((/** @type {ComplexArticle} */product) => {
       const opcion = document.createElement('option')
@@ -317,4 +320,72 @@ function setLocalStorageFromStore() {
  */
 export function updateLocalStorage(storeValue) {
   localStorage.setItem('shoppingList', JSON.stringify(storeValue))
+}
+
+/**
+ * Get data from API
+ * @param {string} apiURL
+ * @param {string} method
+ * @param {any} [data]
+ * @returns {Promise<Array<ComplexArticle | User>>}
+ */
+export async function getAPIData(apiURL, method = 'GET', data) {
+  let apiData
+
+  try {
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    headers.append('Access-Control-Allow-Origin', '*')
+    if (data) {
+      headers.append('Content-Length', String(JSON.stringify(data).length))
+    }
+    // Set Bearer authorization if user is logged in
+    if (isUserLoggedIn()) {
+      const userData = getDataFromSessionStorage()
+      headers.append('Authorization', `Bearer ${userData?.user?.token}`)
+    }
+    apiData = await simpleFetch(apiURL, {
+      // Si la petición tarda demasiado, la abortamos
+      signal: AbortSignal.timeout(3000),
+      method: method,
+      body: data ?? undefined,
+      headers: headers
+    });
+  } catch (/** @type {any | HttpError} */err) {
+    if (err.name === 'AbortError') {
+      console.error('Fetch abortado');
+    }
+    if (err instanceof HttpError) {
+      if (err.response.status === 404) {
+        console.error('Not found');
+      }
+      if (err.response.status === 500) {
+        console.error('Internal server error');
+      }
+    }
+  }
+
+  return apiData
+}
+
+/**
+ * Checks if there is a user logged in by verifying the presence of a token
+ * in the local storage.
+ *
+ * @returns {boolean} True if the user is logged in, false otherwise.
+ */
+function isUserLoggedIn() {
+  const userData = getDataFromSessionStorage()
+  return userData?.user?.token
+}
+
+/**
+ * Retrieves the shopping list data from session storage.
+ *
+ * @returns {State} Saved state.
+ * If no data is found, returns an empty State object.
+ */
+function getDataFromSessionStorage() {
+  const defaultValue = JSON.stringify(INITIAL_STATE)
+  return JSON.parse(sessionStorage.getItem('shoppingList') || defaultValue)
 }

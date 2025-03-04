@@ -4,6 +4,15 @@
  */
 /** @import {ComplexArticle} from 'classes/Article.js' */
 /**
+ * @typedef {Object} User
+ * @property {string} _id
+ * @property {string} name
+ * @property {string} email
+ * @property {string} [password]
+ * @property {string} token
+ * @property {string} role
+ */
+/**
  * @typedef {Object} ActionTypeArticle
  * @property {string} type
  * @property {ComplexArticle} [article]
