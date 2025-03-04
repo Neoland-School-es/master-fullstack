@@ -114,7 +114,7 @@ function setUpShoppingList() {
  * name, quantity, and price, then saves it to the store and adds it to the DOM elements list.
  * Updates local storage with the new state.
  */
-function addToShoppingList() {
+async function addToShoppingList() {
   const campoArticulo = document.getElementById('articulo')
   const nombreArticulo = getInputValue(campoArticulo)
 
@@ -125,6 +125,15 @@ function addToShoppingList() {
     const precioArticulo = Number(getInputValue(campoPrecio))
     // La propiedad _id se genera en la BBDD
     const nuevoArticulo = new ComplexArticle(undefined, nombreArticulo, qtyArticulo, precioArticulo)
+
+    const payload = new URLSearchParams();
+    payload.append('name', nuevoArticulo.name);
+    payload.append('qty', String(nuevoArticulo.qty)); // Convert qty to a string
+    payload.append('price', String(nuevoArticulo.price)); // Convert price to a string
+    payload.append('bought', String(nuevoArticulo.bought)); // Convert bought to a string
+
+    const data = await getAPIData('http://localhost:3333/create/articles', 'POST', payload)
+    console.log('ARTICULO CREADO EN BBDD', nuevoArticulo, data)
 
     store.article.create(nuevoArticulo, () => {
       setLocalStorageFromStore()
