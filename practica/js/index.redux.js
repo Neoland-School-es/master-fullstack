@@ -24,6 +24,13 @@ function onDOMContentLoaded() {
   botonArticulo?.addEventListener('click', onNewArticleClick)
   botonNuevaLista?.addEventListener('click', onNewListClick)
 
+  // Simulate User logged in
+  updateSessionStorage({
+    user: {
+      token: '123456'
+    }
+  })
+
   getUsualProducts()
   setUpShoppingList()
 
@@ -132,7 +139,7 @@ async function addToShoppingList() {
     payload.append('price', String(nuevoArticulo.price)); // Convert price to a string
     payload.append('bought', String(nuevoArticulo.bought)); // Convert bought to a string
 
-    const data = await getAPIData('http://localhost:3333/create/articles', 'POST', payload)
+    const data = await getAPIData('http://127.0.0.1:1337/create/articles', 'POST', payload)
     console.log('ARTICULO CREADO EN BBDD', nuevoArticulo, data)
 
     store.article.create(nuevoArticulo, () => {
@@ -397,4 +404,12 @@ function isUserLoggedIn() {
 function getDataFromSessionStorage() {
   const defaultValue = JSON.stringify(INITIAL_STATE)
   return JSON.parse(sessionStorage.getItem('shoppingList') || defaultValue)
+}
+
+/**
+ * Saves shopping list on sessionStorage
+ * @param {State} storeValue
+ */
+function updateSessionStorage(storeValue) {
+  sessionStorage.setItem('shoppingList', JSON.stringify(storeValue))
 }
