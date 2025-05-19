@@ -143,6 +143,10 @@ const server = app.listen(3000, () => {
 
 ## Sesiones
 
+```bash
+npm install --save express-session
+```
+
 ```js
 const express = require('express');
 const session = require('express-session');
