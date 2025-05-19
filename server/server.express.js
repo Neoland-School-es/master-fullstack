@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT;
 const ARTICLES_URL = './server/BBDD/articles.json'
 const USERS_URL = './server/BBDD/users.json'
-const DEFAULT_SESSION = { resave: false, saveUninitialized: false, secret: 'neoland', cookie: { maxAge: 60000 }}
+const DEFAULT_SESSION = { resave: false, saveUninitialized: false, secret: process.env.SESSION_SECRET, cookie: { maxAge: 60000 }}
 
 // Static server
 app.use(express.static('practica', { setHeaders }));
@@ -94,8 +94,9 @@ app.post('/login', (req, res) => {
 // LOGOUT
 app.get('/logout/:id', requireAuth, (req, res) => {
   console.log('server logout user')
-  req.session.user = undefined
-  res.json({ message: 'user logou ok' })
+  req.session.destroy(() => {
+    res.json({ message: `user ${req.params.id} logout ok` })
+  })
 })
 
 app.listen(port, async () => {
