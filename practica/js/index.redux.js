@@ -106,9 +106,16 @@ function onNewListClick(e) {
  * Initializes the shopping list element from local storage.
  */
 async function setUpShoppingList() {
-  const state = getDataFromLocalStorage()
   const data = await getAPIData('http://127.0.0.1:1337/read/articles', 'GET')
   console.log('lectura de datos desde la API del servidor', data)
+  if (data.length > 0) {
+    // Actualizamos local storage con los datos de la api
+    updateLocalStorage({
+      ...INITIAL_STATE,
+      articles: data
+    })
+  }
+  const state = getDataFromLocalStorage()
 
   state.articles.forEach((/** @type {ComplexArticle} */article) => {
     store.article.create(article, () => {
