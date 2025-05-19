@@ -3,8 +3,9 @@
 ## Instalación
 
 ```bash
-npm install --save-dev express
+npm install --save express
 npm install --save-dev @types/express
+npm install --save-dev @types/body-parser
 ```
 
 Ejemplo de uso:
@@ -96,13 +97,21 @@ app.delete('/users/:id', (req, res) => {
 })
 ```
 
+[Códigos de respuesta](https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP) habituales del servidor para las apis:
+
+* 200 - OK
+* 201 - Created
+* 202 - Accepted
+* 403 - Forbidden
+* 404 - Not Found
+
 ## [Uso de plantillas](https://expressjs.com/en/guide/using-template-engines.html)
 
 * [Pug](https://www.npmjs.com/package/pug)
 * [Handlebars](https://www.npmjs.com/package/handlebars)
 * [EJS](https://www.npmjs.com/package/ejs)
 
-## Cookies
+## [Cookies](https://expressjs.com/resources/middleware/cookie-parser.html)
 
 ```bash
 npm install --save cookie-parser
@@ -141,7 +150,7 @@ const server = app.listen(3000, () => {
 });
 ```
 
-## Sesiones
+## [Sesiones](https://expressjs.com/en/resources/middleware/session.html)
 
 ```bash
 npm install --save express-session
