@@ -2,11 +2,14 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import { crud } from "./server.crud.js";
 
 const app = express();
 const port = process.env.PORT;
 const ARTICLES_URL = './server/BBDD/articles.json'
+const USERS_URL = './server/BBDD/users.json'
+const DEFAULT_SESSION = { resave: false, saveUninitialized: false, secret: 'neoland', cookie: { maxAge: 60000 }}
 
 // Static server
 app.use(express.static('practica', { setHeaders }));
@@ -16,7 +19,10 @@ app.use(bodyParser.json())
 app.use(cookieParser())
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
+// for session storage
+app.use(session(DEFAULT_SESSION))
 
+// 1. Articles
 // CREATE
 app.post('/create/articles', requireAuth, (req, res) => {
   crud.create(ARTICLES_URL, req.body, (data) => {
@@ -45,6 +51,52 @@ app.delete('/delete/articles/:id', requireAuth, (req, res) => {
     res.json(data)
   })
 })
+// 2. Users
+// CREATE
+app.post('/create/users', requireAuth, (req, res) => {
+  crud.create(USERS_URL, req.body, (data) => {
+    console.log(`server create user ${data.name} creado`, data)
+    res.json(data)
+  });
+})
+// READ
+app.get('/read/users', (req, res) => {
+  crud.read(USERS_URL, (data) => {
+    console.log('server read users', data)
+    res.json(data)
+  });
+})
+// LOGIN
+app.post('/login', (req, res) => {
+  // Simulamos un login
+  if (!req.body.username || !req.body.password) {
+    res.status(401).send('Unauthorized')
+  } else {
+    // Buscamos en la BBDD el usuario con ese username
+    crud.findByUsername(USERS_URL, req.body.username, (data) => {
+      if (data) {
+        if (data.password === req.body.password) {
+          const USER_TOKEN = '123456'
+          // Almacenamos en la sesión el token del inicio de sesión del usuario
+          req.session.user = {
+            ...data,
+            token: USER_TOKEN
+          }
+          console.log('user logged in', req.session.user.token)
+          res.json({ token: USER_TOKEN })
+        } else {
+          res.status(401).send('Unauthorized: wrong username or password')
+        }
+      }
+    })
+  }
+})
+// LOGOUT
+app.get('/logout/:id', requireAuth, (req, res) => {
+  console.log('server logout user')
+  req.session.user = undefined
+  res.json({ message: 'user logou ok' })
+})
 
 app.listen(port, async () => {
   console.log(`Shopping List listening on port ${port}`);
@@ -69,7 +121,7 @@ function setHeaders(res, path) {
     // "path" - The cookie is accessible for APIs under the '/api' route
     path: '/api',
     // "domain" - The cookie belongs to the 'example.com' domain
-    domain: 'localhost',
+    domain: '127.0.0.1',
     // "secure" - The cookie will be sent over HTTPS only
     secure: true,
     // "HttpOnly" - The cookie cannot be accessed by client-side scripts
