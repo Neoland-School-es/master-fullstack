@@ -104,6 +104,10 @@ app.delete('/users/:id', (req, res) => {
 
 ## Cookies
 
+```bash
+npm install --save cookie-parser
+```
+
 ```js
 const express = require('express');
 const app = express();
